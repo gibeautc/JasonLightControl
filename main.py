@@ -8,50 +8,50 @@ import paho.mqtt.client as mqtt
 
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+	print("Connected with result code "+str(rc))
 
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    #client.subscribe("$SYS/#")
+	# Subscribing in on_connect() means that if we lose the connection and
+	# reconnect then subscriptions will be renewed.
+	#client.subscribe("$SYS/#")
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
-    if msg.topic=="home/outside/light1/set":
-        if msg.payload=="1":
+	print(msg.topic+" "+str(msg.payload))
+	if msg.topic=="home/outside/light1/set":
+		if msg.payload=="1":
 			client.publish("home/outside/light1/status",payload="1")
-            GPIO.output(light1,GPIO.LOW)
-        else:
-			client.publish("home/outside/light1/status",payload="0")
-            GPIO.output(light1,GPIO.HIGH)
-    elif msg.topic=="home/outside/light2/set":
-        if msg.payload=="1":
+			GPIO.output(light1,GPIO.LOW)
+		else:
+			client.publish("home/outside/light1/status",payload="0")	
+			GPIO.output(light1,GPIO.HIGH)
+	elif msg.topic=="home/outside/light2/set":
+		if msg.payload=="1":
 			client.publish("home/outside/light2/status",payload="1")
-            GPIO.output(light2,GPIO.LOW)
-        else:
+			GPIO.output(light2,GPIO.LOW)
+		else:
 			client.publish("home/outside/light2/status",payload="0")
-            GPIO.output(light2,GPIO.HIGH)
-    elif msg.topic=="home/outside/light3/set":
-        if msg.payload=="1":
+			GPIO.output(light2,GPIO.HIGH)
+	elif msg.topic=="home/outside/light3/set":
+		if msg.payload=="1":
 			client.publish("home/outside/light3/status",payload="1")
-            GPIO.output(light3,GPIO.LOW)
-        else:
+			GPIO.output(light3,GPIO.LOW)
+		else:
 			client.publish("home/outside/light3/status",payload="0")
-            GPIO.output(light3.GPIO.HIGH)
-    elif msg.topic=="home/outside/light4/set":
-        if msg.payload=="1":
+			GPIO.output(light3.GPIO.HIGH)
+	elif msg.topic=="home/outside/light4/set":
+		if msg.payload=="1":
 			client.publish("home/outside/light4/status",payload="1")
-            GPIO.output(light4,GPIO.LOW)
-        else:
+			GPIO.output(light4,GPIO.LOW)
+		else:
 			client.publish("home/outside/light4/status",payload="0")
-            GPIO.output(light4,GPIO.HIGH)
-    else:
-        print("unknown topic:",msg.topic)
+			GPIO.output(light4,GPIO.HIGH)
+	else:
+		print("unknown topic:",msg.topic)
 
 
 def measure_temp():
-        temp = os.popen("vcgencmd measure_temp").readline()
-        return (temp.replace("temp=",""))
+		temp = os.popen("vcgencmd measure_temp").readline()
+		return (temp.replace("temp=",""))
 
 
 client = mqtt.Client()
@@ -91,26 +91,13 @@ print("Here we go! Press CTRL+C to exit")
 lastCheck=time.time()
 state=True
 try:
-    while 1:
-        client.loop()
-        if time.time()-lastCheck>5:
-            client.publish("pi/temp", measure_temp())
-            lastCheck=time.time()
-            if state:
-                print("Turning On")
-                GPIO.output(light1,GPIO.LOW)
-                GPIO.output(light2,GPIO.LOW)
-                GPIO.output(light3,GPIO.LOW)
-                GPIO.output(light4,GPIO.LOW)
-            else:
-                print("Turning Off")
-                GPIO.output(light1,GPIO.HIGH)
-                GPIO.output(light2,GPIO.HIGH)
-                GPIO.output(light3,GPIO.HIGH)
-                GPIO.output(light4,GPIO.HIGH)
-            state=not state
+	while 1:
+		client.loop()
+		if time.time()-lastCheck>5:
+			client.publish("pi/temp", measure_temp())
+			lastCheck=time.time()
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
-    GPIO.cleanup() # cleanup all GPIO
+	GPIO.cleanup() # cleanup all GPIO
 
 
