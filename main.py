@@ -19,10 +19,10 @@ def on_message(client, userdata, msg):
 	print(msg.topic+" "+str(msg.payload))
 	if msg.topic=="home/outside/light1/set":
 		if msg.payload=="1":
-			client.publish("home/outside/light1/status",payload=1)
+			client.publish("home/outside/light1/status",payload="1")
 			GPIO.output(light1,GPIO.LOW)
 		else:
-			client.publish("home/outside/light1/status",payload=0)	
+			client.publish("home/outside/light1/status",payload="0")	
 			GPIO.output(light1,GPIO.HIGH)
 	elif msg.topic=="home/outside/light2/set":
 		if msg.payload=="1":
