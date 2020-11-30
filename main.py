@@ -58,6 +58,10 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect("localhost", 1883, 60)
+client.subscribe("home/outside/light1/set",0)
+client.subscribe("home/outside/light2/set",0)
+client.subscribe("home/outside/light3/set",0)
+client.subscribe("home/outside/light4/set",0)
 
 # Pin Definitons:
 light1=4
