@@ -34,7 +34,7 @@ def on_message(client, userdata, msg):
 			GPIO.output(light3,GPIO.LOW)
 		else:
 			client.publish("home/outside/light3/status",payload="0")
-			GPIO.output(light3.GPIO.HIGH)
+			GPIO.output(light3,GPIO.HIGH)
 	elif msg.topic=="home/outside/light4/set":
 		if pl==1:
 			client.publish("home/outside/light4/status",payload="1")
