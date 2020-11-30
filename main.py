@@ -12,12 +12,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-		print(msg.topic+" "+str(msg.payload))
-		pl=int(msg.payload)
-		if msg.topic=="home/outside/light1/set": 
-			if pl==1:
-				client.publish("home/outside/light1/status",payload="1")
-				GPIO.output(light1,GPIO.LOW)
+	print(msg.topic+" "+str(msg.payload))
+	pl=int(msg.payload)
+	if msg.topic=="home/outside/light1/set": 
+		if pl==1:
+			client.publish("home/outside/light1/status",payload="1")
+			GPIO.output(light1,GPIO.LOW)
 		else:
 			client.publish("home/outside/light1/status",payload="0")	
 			GPIO.output(light1,GPIO.HIGH)
