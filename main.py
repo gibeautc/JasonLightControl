@@ -22,21 +22,21 @@ def on_message(client, userdata, msg):
 			client.publish("home/outside/light1/status",payload="0")	
 			GPIO.output(light1,GPIO.HIGH)
 	elif msg.topic=="home/outside/light2/set":
-		if msg.payload=="1":
+		if pl==1:
 			client.publish("home/outside/light2/status",payload="1")
 			GPIO.output(light2,GPIO.LOW)
 		else:
 			client.publish("home/outside/light2/status",payload="0")
 			GPIO.output(light2,GPIO.HIGH)
 	elif msg.topic=="home/outside/light3/set":
-		if msg.payload=="1":
+		if pl==1:
 			client.publish("home/outside/light3/status",payload="1")
 			GPIO.output(light3,GPIO.LOW)
 		else:
 			client.publish("home/outside/light3/status",payload="0")
 			GPIO.output(light3.GPIO.HIGH)
 	elif msg.topic=="home/outside/light4/set":
-		if msg.payload=="1":
+		if pl==1:
 			client.publish("home/outside/light4/status",payload="1")
 			GPIO.output(light4,GPIO.LOW)
 		else:
