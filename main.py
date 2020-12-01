@@ -9,12 +9,12 @@ from os import path
 
 
 PIDFILE="/home/pi/.light.pid"
-PASSWORDFILE="/home/pi/.password
+PASSWORDFILE="/home/pi/.password"
 
 def GetBrokerPassword():
 	if not path.exists(PASSWORDFILE):
 		print("No Password File")
-		os.exit()
+		exit()
 	else:
 		f=open(PASSWORDFILE,"r")
 		return f.read()
