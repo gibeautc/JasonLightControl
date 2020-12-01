@@ -57,6 +57,10 @@ def DoWatchDog():
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code "+str(rc))
 
+def on_disconect(client,userdata,flags,rc):
+	print("Got Disconnect from broker:"+str(rc))
+	client.reconnect()
+
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	print(msg.topic+" "+str(msg.payload))
@@ -110,6 +114,7 @@ print("Using Username:",username)
 print("password:",password)
 client.on_connect = on_connect
 client.on_message = on_message
+client.on_disconnect=on_disconect
 client.username_pw_set(username, password=password)
 client.connect("localhost", 1883, 60)
 client.subscribe("home/outside/light1/set",0)
