@@ -106,7 +106,8 @@ username=fileC[0]
 password=fileC[1]
 
 client = mqtt.Client()
-
+print("Using Username:",username)
+print("password:",password)
 client.on_connect = on_connect
 client.on_message = on_message
 client.username_pw_set(username, password=password)
