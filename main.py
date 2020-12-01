@@ -59,6 +59,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_disconect(client,userdata,rc):
 	print("Got Disconnect from broker:"+str(rc))
+	time.sleep(5)
 	client.reconnect()
 
 # The callback for when a PUBLISH message is received from the server.
@@ -106,8 +107,8 @@ DoWatchDog()
 
 fileC=GetBrokerPassword()
 fileC=fileC.split(":")
-username=fileC[0]
-password=fileC[1]
+username=fileC[0].strip()
+password=fileC[1].strip()
 
 client = mqtt.Client()
 print("Using Username:",username)
