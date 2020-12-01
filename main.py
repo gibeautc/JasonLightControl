@@ -57,7 +57,7 @@ def DoWatchDog():
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code "+str(rc))
 
-def on_disconect(client,userdata,flags,rc):
+def on_disconect(client,userdata,rc):
 	print("Got Disconnect from broker:"+str(rc))
 	client.reconnect()
 
