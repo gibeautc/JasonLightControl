@@ -9,6 +9,16 @@ from os import path
 
 
 PIDFILE="/home/pi/.light.pid"
+PASSWORDFILE="/home/pi/.password
+
+def GetBrokerPassword():
+	if not path.exists(PASSWORDFILE):
+		print("No Password File")
+		os.exit()
+	else:
+		f=open(PASSWORDFILE,"r")
+		return f.read()
+
 
 def check_pid(pid):        
     """ Check For the existence of a unix pid. """
@@ -90,9 +100,16 @@ def measure_temp():
 
 DoWatchDog()
 
+fileC=GetBrokerPassword()
+fileC=fileC.split(":")
+username=fileC[0]
+password=fileC[1]
+
 client = mqtt.Client()
+
 client.on_connect = on_connect
 client.on_message = on_message
+client.username_pw_set(username, password=password)
 client.connect("localhost", 1883, 60)
 client.subscribe("home/outside/light1/set",0)
 client.subscribe("home/outside/light2/set",0)
