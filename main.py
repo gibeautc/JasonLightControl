@@ -8,7 +8,7 @@ import paho.mqtt.client as mqtt
 from os import path
 
 
-
+PIDFILE="/home/pi/.light.pid"
 
 def check_pid(pid):        
     """ Check For the existence of a unix pid. """
